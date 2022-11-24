@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState = {
+let initialState = {
     posts: [
         { id: nanoid(), text: "just a simple post, nothing special" },
         { id: nanoid(), text: "rare post, a bit specail" },
@@ -9,25 +9,25 @@ const initialState = {
     newPostText: 'new post',
 };
 
-const profileSlice = createSlice({
-    name: profile,
+const postsSlice = createSlice({
+    name: "profile",
     initialState,
     reducers: {
         postAdded: (state, action) => {
             let newPost = {
                 id: nanoid(),
-                text: action.postText,
+                text: action.payload.finalText,
             }
             state.posts.push(newPost);
             state.newPostText = '';
             return state;
         },
         postTextUpdated: (state, action) => { 
-            state.newPostText = action.newText;
+            state.newPostText = action.payload.currentText;
             return state;
         },
     }
 });
 
-export default profileSlice.reducer;
-export const { postAdded, postTextUpdated } = profileSlice.actions; 
+export default postsSlice.reducer;
+export const { postAdded, postTextUpdated } = postsSlice.actions; 
