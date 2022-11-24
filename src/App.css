@@ -1,0 +1,29 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-size: 24px;
+}
+
+.App {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas: 
+  'header header'
+  'nav content';
+  margin: 0px;
+}
+
+.header {
+  grid-area: header;
+}
+.nav {
+  grid-area: nav;
+  background-color: lightcoral;
+ }
+.content {
+  grid-area: content;
+  background-color: beige;
+}

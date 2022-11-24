@@ -1,0 +1,12 @@
+.navText {
+    text-decoration: none;
+    color: mintcream;
+}
+
+/* .navText:active {
+    color: black;
+} */
+
+.navText:focus {
+    color: yellow;
+}

@@ -1,0 +1,15 @@
+.prHeader {
+    background-image: url("https://via.placeholder.com/911x446/ADD8E6/ADD8E6?Text=BG");
+    padding: 20px;
+    color: #333;
+    width: 100%;
+    max-width: 1600px;
+    height: auto;
+}
+
+.pPic {
+    /* position: absolute;
+    top: 500px;
+    left: 50px; */
+    border-radius: 50%;
+}
