@@ -1,4 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
 import messagesReducer from "./messagesReducer";
 import profileReducer from "./profileReducer";
 

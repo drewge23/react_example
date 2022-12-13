@@ -5,23 +5,26 @@ import Profile from './components/Profile/Profile';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import Messages from './components/Messages/Messages';
+// import Messages from './components/Messages/Messages';
+import Test from './components/Test';
+import Friends from "./components/Friends/Friends";
+import Login from "./components/Login/Login";
 
 function App(props) {
-  // let isLoggedIn = true;
   return (
     <BrowserRouter>
         <div className="App">
           <Header />
           <SideNav />
               <Routes>
-                  <Route path="profile/*" element=
+                  <Route path="profile/:userId" element=
                       {<Profile />} />
-                  
+                  <Route path="friends/*" element=
+                      {<Friends />} />
                   <Route path="messages/*" element=
-                      {<Messages 
-                        messagesPage={props.state.messagesPage}
-                        dispatch={props.dispatch} />} />
+                      {<Test name={"Andrei"}/>} />
+                  <Route path="login" element=
+                      {<Login />} />
               </Routes>
         </div>
     </BrowserRouter>
@@ -29,8 +32,3 @@ function App(props) {
 }
 
 export default App;
-
-{/* ex Profile props
-store={props.store}
-profilePage={props.state.profilePage}
-dispatch={props.dispatch}  */}

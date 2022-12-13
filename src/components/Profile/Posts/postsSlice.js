@@ -1,33 +1,24 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-let initialState = {
-    posts: [
-        { id: nanoid(), text: "just a simple post, nothing special" },
-        { id: nanoid(), text: "rare post, a bit specail" },
-        { id: nanoid(), text: "a very speacial post" },
-    ],
-    newPostText: 'new post',
-};
-
 const postsSlice = createSlice({
-    name: "profile",
-    initialState,
+    name: "posts",
+    initialState: {
+        posts: [], /*id: nanoid(), text: "text"*/
+        status: 'idle',
+        error: null,
+    },
     reducers: {
         postAdded: (state, action) => {
+            let {text} = action.payload;
             let newPost = {
                 id: nanoid(),
-                text: action.payload.finalText,
+                text: text,
             }
             state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
-        },
-        postTextUpdated: (state, action) => { 
-            state.newPostText = action.payload.currentText;
             return state;
         },
     }
 });
 
 export default postsSlice.reducer;
-export const { postAdded, postTextUpdated } = postsSlice.actions; 
+export const { postAdded } = postsSlice.actions;
