@@ -15,7 +15,6 @@ const authSlice = createSlice({
             return {
                 ...state,
                 ...action.payload,
-                isLogged: true,
             }
         },
         setIsFetching: (state, action) => {
@@ -24,6 +23,12 @@ const authSlice = createSlice({
                 isFetching: action.payload,
             }
         },
+        setIsLogged: (state, action) => {
+            return {
+                ...state,
+                isLogged: action.payload,
+            }
+        }
     }
 })
 
@@ -31,9 +36,27 @@ export const getAuthThunkCreator = () => dispatch => {
     authAPI.me().then(data => {
         if (data.resultCode === 0) {
             dispatch(setUserData(data.data));
+            dispatch(setIsLogged(true))
+        }
+    });
+}
+export const login = (email, password, rememberMe) => dispatch => {
+    authAPI.login(email, password, rememberMe).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(getAuthThunkCreator);
+            dispatch(setIsLogged(true))
+        }
+    });
+}
+export const logout = () => dispatch => {
+    authAPI.logout().then(data => {
+        if (data.resultCode === 0) {
+            dispatch(setUserData({id: null, login: null, email: null}));
+            dispatch(setIsLogged(false))
         }
     });
 }
 
+
 export default authSlice.reducer;
-export const {setUserData, setIsFetching} = authSlice.actions;
+export const {setUserData, setIsFetching, setIsLogged} = authSlice.actions;

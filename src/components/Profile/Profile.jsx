@@ -4,7 +4,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfileThunkCreator} from "./profileSlice";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hocs/WithAuthRedirect";
 
 let Profile = (props) => {
@@ -15,6 +15,11 @@ let Profile = (props) => {
     useEffect(() => {
         dispatch(getProfileThunkCreator(params.userId))
     }, [params.userId, dispatch])
+
+    const isLogged = useSelector(state => state.auth.isLogged)
+    if (!isLogged) {
+        return <Navigate to={"/login"}/>
+    }
 
     return (
         <div className={s.prHeader}>

@@ -20,7 +20,7 @@ const ProfileStatusFunc = (props) => {
 
     useEffect(() => {
         dispatch(getStatusTC(props.userdId))
-    }, [])
+    }, [dispatch])
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {profileAPI, usersAPI} from "../../api/api";
+import {profileAPI} from "../../api/api";
 
 const profileSlice = createSlice({
     name: 'profile',
@@ -31,7 +31,11 @@ const profileSlice = createSlice({
         setProfileStatus: (state, action) => {
             state.profileStatus = action.payload;
             return state;
-        }
+        },
+        setProfilePic: (state, action) => {
+            state.profileInfo.photos = action.payload
+            return state
+        },
     }
 })
 
@@ -52,6 +56,13 @@ export const getStatusTC = userId => dispatch => {
 export const updateStatusTC = status => dispatch => {
     profileAPI.updateStatus(status)
 }
+export const saveProfilePic = file => async dispatch => {
+    let response = await profileAPI.updateProfilePic(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(setProfilePic(response.data.data.photos))
+    }
+}
 
 export default profileSlice.reducer;
-export const {setProfileInfo, setIsFetching, setProfileStatus} = profileSlice.actions;
+export const {setProfileInfo, setIsFetching, setProfileStatus, setProfilePic} = profileSlice.actions;

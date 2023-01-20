@@ -13,7 +13,19 @@ export const authAPI = {
             instance.get(`auth/me`)
                 .then(response => response.data)
         )
-    }
+    },
+    login(email,password,rememberMe) {
+        return (
+            instance.post(`auth/login`, {email, password, rememberMe})
+                .then(response => response.data)
+        )
+    },
+    logout() {
+        return (
+            instance.delete(`auth/login`)
+                .then(response => response.data)
+        )
+    },
 }
 export const usersAPI = {
     getUsers(pageNumber, pageSize) {
@@ -55,5 +67,16 @@ export const profileAPI = {
     },
     updateStatus(status) {
         instance.put(`profile/status`, {status: status})
+    },
+    updateProfilePic(file) {
+        const formData = new FormData();
+        formData.append("image", file)
+
+        return (
+            instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }))
     },
 }

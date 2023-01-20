@@ -31,7 +31,7 @@ const messagesSlice = createSlice({
             return state;
         },
         messageUpdated: (state, action) => {
-            state.newMessageText = action.payload.currentText;
+            state.newMessageText = action.payload;
             return state;
         },
     }

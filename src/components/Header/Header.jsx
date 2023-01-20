@@ -1,21 +1,19 @@
 import s from './Header.module.css';
-import {BiSearch, BiBell} from "react-icons/bi";
-import {BsPlayFill, BsFillPauseFill} from "react-icons/bs";
-import React, {useEffect} from 'react';
-
-import {useState} from 'react';
-import {getAuthThunkCreator} from "../../redux/authSlice";
+import {BiBell, BiSearch} from "react-icons/bi";
+import {BsFillPauseFill, BsPlayFill} from "react-icons/bs";
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
+import {logout} from "../../redux/authSlice";
 
 const Header = (props) => {
     const dispatch = useDispatch();
-    let userData = useSelector(state => state.auth);
+    const userData = useSelector(state => state.auth);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    useEffect(() => {
-        dispatch(getAuthThunkCreator());
-    }, [dispatch])
+    const onClick = () => {
+        dispatch(logout());
+    }
 
     return (
         <div className={`${s.header} header`}>
@@ -25,7 +23,10 @@ const Header = (props) => {
 
             <div>
                 {userData.isLogged
-                    ? <h3> {userData.login} </h3>
+                    ? (<>
+                        <h3> {userData.login} </h3>
+                        <button onClick={onClick}>Logout</button>
+                    </>)
                     : <NavLink to={'/login'}> Login </NavLink>}
             </div>
 
