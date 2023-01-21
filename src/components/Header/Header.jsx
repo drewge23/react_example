@@ -18,7 +18,8 @@ const Header = (props) => {
     return (
         <div className={`${s.header} header`}>
             <div className={s.logo}>
-                <img src="https://via.placeholder.com/40" alt=""/>
+                <img src="https://via.placeholder.com/50/FFFF00/000000" alt=""
+                style={{width: '50px', borderRadius: '50%'}}/>
             </div>
 
             <div>
@@ -46,7 +47,7 @@ const Header = (props) => {
                         ? <BsPlayFill/>
                         : <BsFillPauseFill/>}
                 </button>
-                <p>Over the garden wall -- The main theme</p>
+                <p>Over the garden wall — The main theme</p>
             </div>
         </div>
     )

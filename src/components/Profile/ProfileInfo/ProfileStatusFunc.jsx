@@ -19,7 +19,7 @@ const ProfileStatusFunc = (props) => {
     }
 
     useEffect(() => {
-        dispatch(getStatusTC(props.userdId))
+        dispatch(getStatusTC(props.userId))
     }, [dispatch])
 
     return (
