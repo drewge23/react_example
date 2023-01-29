@@ -1,7 +1,7 @@
 {
   "name": "react_example",
   "version": "0.1.0",
-  "homepage": "https://drewge23.github.io/react_example",
+  "homepage": "https://drewge23.github.io/social-network",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
