@@ -32,6 +32,7 @@ const ProfileInfo = (props) => {
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
+                    width: '30%',
                 }}>
                     {profileInfo.photos?.small
                         ? <img src={profileInfo.photos.large} alt="" className={s.pPic}/>
