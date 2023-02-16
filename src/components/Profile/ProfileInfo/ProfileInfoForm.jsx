@@ -4,6 +4,7 @@ import {Field, Form} from "react-final-form";
 
 const ProfileInfoForm = ({profileInfo}) => {
     const userId = useSelector(state => state.auth.id)
+    const errorMessage = useSelector(state => state.profile.errorMessage)
     const dispatch = useDispatch()
 
     const onSubmit = (values) => {
@@ -105,6 +106,7 @@ const ProfileInfoForm = ({profileInfo}) => {
                                   </div>
                               )}
                           </Field>
+                          {errorMessage && <div style={{color: 'crimson'}}>{errorMessage}</div>}
                           <button type={"submit"}> Save </button>
                       </form>)}
             />

@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import {logout} from "../../redux/authSlice";
 
+import CAT from '../../assets/cat_mirrored.png'
+
 const Header = (props) => {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.auth);
@@ -14,41 +16,59 @@ const Header = (props) => {
     const onClick = () => {
         dispatch(logout());
     }
-
     return (
-        <div className={`${s.header} header`}>
-            <div className={s.logo}>
-                <img src="https://via.placeholder.com/50/FFFF00/000000" alt=""
-                style={{width: '50px', borderRadius: '50%'}}/>
-            </div>
+        <div className={`${s.header} header`} style={{
+            display: 'flex',
+        }}>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%'
+            }}>
+                <div className={s.logo} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexGrow: 1,
+                    padding: '20px',
+                    gap: '20px'
+                }}>
+                    <img src={CAT} alt=""
+                         style={{width: '50px'}}/>
+                    {userData.isLogged && <h3 style={{flexGrow: 1, width: '100%'}}> {userData.login} </h3>}
+                </div>
 
-            <div>
-                {userData.isLogged
-                    ? (<>
-                        <h3> {userData.login} </h3>
-                        <button onClick={onClick}>Logout</button>
-                    </>)
-                    : <NavLink to={'/login'}> Login </NavLink>}
+                <div>
+                    {userData.isLogged
+                        ? <button onClick={onClick}
+                                  style={{
+                                      flexGrow: 0,
+                                      margin: 'auto 20px',
+                                  }}
+                        >Logout</button>
+                        : <NavLink to={'/login'}><button> Login </button></NavLink>}
+                </div>
             </div>
+            {/*<div style={{flexGrow: 0, display: 'flex'}}>*/}
+            {/*    <div className={s.searchBar}>*/}
+            {/*        <BiSearch/>*/}
+            {/*        <input/>*/}
+            {/*    </div>*/}
 
-            <div className={s.searchBar}>
-                <BiSearch/>
-                <input/>
-            </div>
-
-            <div className="bell">
-                <button style={{margin: 10}}>
-                    <BiBell/>
-                </button>
-            </div>
-            <div className={s.audioPlayer}>
-                <button onClick={() => setIsPlaying(!isPlaying)}>
-                    {isPlaying
-                        ? <BsPlayFill/>
-                        : <BsFillPauseFill/>}
-                </button>
-                <p>Over the garden wall — The main theme</p>
-            </div>
+            {/*    <div className="bell">*/}
+            {/*        <button style={{margin: 10}}>*/}
+            {/*            <BiBell/>*/}
+            {/*        </button>*/}
+            {/*    </div>*/}
+            {/*    <div className={s.audioPlayer}>*/}
+            {/*        <button onClick={() => setIsPlaying(!isPlaying)}>*/}
+            {/*            {isPlaying*/}
+            {/*                ? <BsPlayFill/>*/}
+            {/*                : <BsFillPauseFill/>}*/}
+            {/*        </button>*/}
+            {/*        <p>Over the garden wall — The main theme</p>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     )
 }

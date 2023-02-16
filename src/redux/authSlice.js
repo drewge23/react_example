@@ -38,13 +38,12 @@ export const getAuthThunkCreator = () => dispatch => {
             dispatch(setUserData(data.data));
             dispatch(setIsLogged(true))
         }
-    });
+    })
 }
 export const login = (email, password, rememberMe) => dispatch => {
     authAPI.login(email, password, rememberMe).then(data => {
         if (data.resultCode === 0) {
-            dispatch(getAuthThunkCreator);
-            dispatch(setIsLogged(true))
+            dispatch(getAuthThunkCreator());
         }
     });
 }

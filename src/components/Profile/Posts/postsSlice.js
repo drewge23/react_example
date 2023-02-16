@@ -14,7 +14,7 @@ const postsSlice = createSlice({
                 id: nanoid(),
                 text: text,
             }
-            state.posts.push(newPost);
+            state.posts.unshift(newPost);
             return state;
         },
     }

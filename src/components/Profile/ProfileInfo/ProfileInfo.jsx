@@ -1,13 +1,10 @@
 import s from './ProfileInfo.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusFunc from "./ProfileStatusFunc";
-import {saveProfilePic, setIsEditMode, setProfileInfo, setProfileInfoTC} from "../profileSlice";
-import {useState} from "react";
-import {login} from "../../../redux/authSlice";
-import {Field, Form} from "react-final-form";
+import {saveProfilePic, setIsEditMode} from "../profileSlice";
 import ProfileInfoForm from "./ProfileInfoForm";
-import {Link} from "react-router-dom";
+
+import BUSINESS_CAT from '../../../assets/business_cat.jpg'
 
 const ProfileInfo = (props) => {
     const profileInfo = useSelector(state => state.profile.profileInfo)
@@ -27,17 +24,19 @@ const ProfileInfo = (props) => {
     }
 
     return (
-        <div className={s.prHeader}>
+        <div className={s.prHeader} style={{flexGrow: 1, borderRadius: '25px'}}>
             <div className="headerBottom">
-                {profileInfo.photos.small
+                {profileInfo.photos?.small
                     ? <img src={profileInfo.photos.large} alt="" className={s.pPic}/>
-                    : <img src="https://via.placeholder.com/200/FFFF00/000000" alt="" className={s.pPic}/>
+                    : <img src={BUSINESS_CAT} alt="" className={s.pPic}/>
                 }
                 {props.userId == myId ? <input type="file" onChange={changeProfilePic}/> : null}
                 {/*<ProfileStatus status={profileStatus} dispatch={dispatch}/>*/}
                 <ProfileStatusFunc userId={props.userId}/>
 
-                {isEditMode ? <ProfileInfoForm profileInfo={profileInfo}/> : <div>
+                {isEditMode
+                    ? <ProfileInfoForm profileInfo={profileInfo}/>
+                    : <div>
                     <div>
                         <h1> Name: {profileInfo.fullName} </h1>
                     </div>
@@ -48,7 +47,7 @@ const ProfileInfo = (props) => {
                     }
                     <div>
                         <p> Contacts </p>
-                        {Object.keys(profileInfo.contacts).map(key => {
+                        {profileInfo.contacts && Object.keys(profileInfo.contacts).map(key => {
                             return (
                                 profileInfo.contacts[key] && <div key={key} style={{fontSize: '10px'}}>
                                     <p style={{marginLeft: '30px'}}>

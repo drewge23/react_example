@@ -16,9 +16,10 @@ const profileSlice = createSlice({
                 large: null
             }
         },
-        profileStatus: "change me",
+        profileStatus: "Click to change status",
         isFetching: false,
         isEditMode: false,
+        errorMessage: null,
     },
     reducers: {
         setProfileInfo: (state, action) => {
@@ -41,6 +42,10 @@ const profileSlice = createSlice({
             state.isEditMode = action.payload
             return state
         },
+        setErrorMessage: (state, action) => {
+            state.errorMessage = action.payload
+            return state
+        }
     }
 })
 
@@ -56,12 +61,16 @@ export const setProfileInfoTC = profileInfo => dispatch => {
     dispatch(setIsFetching(true))
     profileAPI.updateProfileInfo(profileInfo)
         .then(response => {
-            if (response === 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(setProfileInfo(profileInfo))
+                dispatch(setIsFetching(false))
+                dispatch(setIsEditMode(false))
+                dispatch(setErrorMessage(null))
+            } else {
+                dispatch(setErrorMessage(response.data.messages[0]))
+                dispatch(setIsFetching(false))
             }
         })
-        .then(dispatch(setIsFetching(false)))
-        .then(dispatch(setIsEditMode(false)))
 }
 export const getStatusTC = userId => dispatch => {
     profileAPI.getStatus(userId)
@@ -82,4 +91,11 @@ export const saveProfilePic = file => async dispatch => {
 }
 
 export default profileSlice.reducer;
-export const {setProfileInfo, setIsFetching, setProfileStatus, setProfilePic, setIsEditMode} = profileSlice.actions;
+export const {
+    setProfileInfo,
+    setIsFetching,
+    setProfileStatus,
+    setProfilePic,
+    setIsEditMode,
+    setErrorMessage
+} = profileSlice.actions;

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfileThunkCreator} from "./profileSlice";
 import {Navigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hocs/WithAuthRedirect";
+import DocumentTitle from 'react-document-title'
 
 let Profile = (props) => {
     const dispatch = useDispatch();
@@ -22,12 +23,20 @@ let Profile = (props) => {
     }
 
     return (
-        <div className={s.prHeader}>
-            {isFetching
-                ? <p> Data is fetching... </p>
-                : <ProfileInfo userId={params.userId}/>}
-            <Posts/>
-        </div>
+        <DocumentTitle title={'Profile'}>
+            <div className={s.prHeader} style={{
+                minHeight: '80vh',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                width: '100%',
+            }}>
+                {isFetching
+                    ? <p> Data is fetching... </p>
+                    : <ProfileInfo userId={params.userId}/>}
+                <Posts/>
+            </div>
+        </DocumentTitle>
     )
 }
 
