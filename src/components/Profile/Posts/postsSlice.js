@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import {createSlice, nanoid} from "@reduxjs/toolkit";
 
 const postsSlice = createSlice({
     name: "posts",
@@ -17,8 +17,12 @@ const postsSlice = createSlice({
             state.posts.unshift(newPost);
             return state;
         },
+        postDeleted: (state, action) => {
+            state.posts = state.posts.filter(post => post.id !== action.payload)
+            return state
+        }
     }
 });
 
 export default postsSlice.reducer;
-export const { postAdded } = postsSlice.actions;
+export const { postAdded, postDeleted } = postsSlice.actions;

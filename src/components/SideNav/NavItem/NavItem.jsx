@@ -6,7 +6,10 @@ const NavItem = (props) => {
     return (
         <div className={s.navItem}>
             <Link to={props.link} className={s.navIcon}></Link>
-            <Link to={props.link} className={s.navText}> {props.text} </Link>
+            <Link to={props.link} className={s.navText}> <h3 style={{
+                fontSize: '30px',
+                fontWeight: '550'
+            }}>{props.text}</h3> </Link>
         </div>
     )
 }

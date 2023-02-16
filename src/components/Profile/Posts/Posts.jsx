@@ -26,16 +26,17 @@ const Posts = (props) => {
         }} className="content">
             <div style={{
                 display: 'flex',
+                alignItems: 'center',
                 gap: '10px'
             }}>
                 <textarea
                     onChange={(e) => setText(e.target.value)}
                     value={text}/>
-                <button onClick={onAddPost}> new post</button>
+                <button onClick={onAddPost}> New post </button>
             </div>
             <div>
                 {posts.map(post =>
-                    <Post key={post.id} text={post.text}/>)}
+                    <Post key={post.id} text={post.text} id={post.id}/>)}
             </div>
         </div>
     )

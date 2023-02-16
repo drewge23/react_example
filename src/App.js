@@ -36,7 +36,7 @@ function App(props) {
     }, [dispatch])
 
     return (
-        <DocumentTitle title={'Social network'}>
+        <DocumentTitle title={'Social Network'}>
             <HashRouter>
                 <div className="App">
                     <Header/>

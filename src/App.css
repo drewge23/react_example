@@ -46,6 +46,9 @@ button:hover {
 }
 textarea {
   resize: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 15px;
 }
 input {
   padding: 10px 15px;

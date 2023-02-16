@@ -42,6 +42,9 @@ const Friends = () => {
         <DocumentTitle title={'Users'}>
             <div className={s.prHeader}>
                 <button
+                    style={{
+                        margin: '5px'
+                    }}
                     onClick={() => {
                         setPageNumber(pageNumber > 1 ? pageNumber - 1 : pageNumber)
                         if (firstPage > 1 && pageNumber <= firstPage) {
@@ -53,11 +56,20 @@ const Friends = () => {
 
                 {pages.map(p => <button
                     key={p}
-                    style={{width: 50, height: 50, backgroundColor: p === pageNumber ? '#74d9d9' : 'lightcyan'}}
+                    style={{
+                        width: 50,
+                        height: 50,
+                        padding: 0,
+                        margin: '5px',
+                        backgroundColor: p === pageNumber ? '#74d9d9' : 'lightcyan'
+                    }}
                     onClick={() => setPageNumber(p)}
                 > {p} </button>)}
 
                 <button
+                    style={{
+                        margin: '5px'
+                    }}
                     onClick={() => {
                         setPageNumber(pageNumber < pagesAmount ? pageNumber + 1 : pageNumber)
                         if (pageNumber >= lastPage) {
@@ -70,43 +82,67 @@ const Friends = () => {
                 <p></p>
 
                 <button
-                    onClick={() => dispatch(setPageSize(10))}
-                > {'page size +'} </button>
-                <button
-                    onClick={() => dispatch(setPageSize(5))}
-                > {'page size -'} </button>
+                    style={{margin: '5px'}}
+                    onClick={() => dispatch(setPageSize(pageSize + 5))}
+                > show more +
+                </button>
+                <button style={{margin: '5px'}}
+                    onClick={() => {
+                        if (pageSize >= 9) dispatch(setPageSize(pageSize - 5))
+                    }}
+                > show less -
+                </button>
 
-                <div>Users</div>
-                {isFetching
-                    ? <p> data is fetching... </p>
-                    : friends.map(user => {
-                        return (<div key={user.id}
-                                     style={{marginTop: 20}}>
-                            <div>
-                                <NavLink to={`/profile/${user.id}`}>
-                                    <img src={user.photos.small
-                                        ? user.photos.small
-                                        : BUSINESS_CAT} alt=""
-                                         style={{width: 100, height: 100, borderRadius: 25}}/>
-                                </NavLink>
-                            </div>
-                            <div><b>{user.name}</b></div>
-                            <div>id: {user.id}</div>
-                            {user.followed && isLogged
-                                ? <button disabled={!isLogged || followingProgress.some(id => id === user.id)}
-                                          onClick={() => dispatch(unfollowUserThunkCreator(user.id))}
-                                > unfollow </button>
-                                : <button disabled={followingProgress.some(id => id === user.id)}
-                                          onClick={() =>
-                                              isLogged
-                                                  ? dispatch(followUserThunkCreator(user.id))
-                                                  : navigate('/login')}
-                                > follow </button>}
-                        </div>)
-                    })}
-            </div>
-        </DocumentTitle>
-    )
-}
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '20px 0 50px 50px'
+                }}>
+                    <h1>Users</h1>
+                    {isFetching
+                        ? <p> data is fetching... </p>
+                        : <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                        }}>
+                            {friends.map(user => {
+                                return (<div key={user.id}
+                                             style={{
+                                                 display: 'flex',
+                                                 flexDirection: 'column',
+                                                 justifyContent: 'center',
+                                                 alignItems: 'center',
+                                                 marginRight: '100px',
+                                                 marginBottom: '50px'
+                                             }}>
+                                    <div>
+                                        <NavLink to={`/profile/${user.id}`}>
+                                            <img src={user.photos.small
+                                                ? user.photos.small
+                                                : BUSINESS_CAT} alt=""
+                                                 style={{width: 100, height: 100, borderRadius: 25}}/>
+                                        </NavLink>
+                                    </div>
+                                    <div><b>{user.name}</b></div>
+                                    <div>id: {user.id}</div>
+                                    {user.followed && isLogged
+                                        ? <button disabled={!isLogged || followingProgress.some(id => id === user.id)}
+                                                  onClick={() => dispatch(unfollowUserThunkCreator(user.id))}
+                                        > unfollow </button>
+                                        : <button disabled={followingProgress.some(id => id === user.id)}
+                                                  onClick={() =>
+                                                      isLogged
+                                                          ? dispatch(followUserThunkCreator(user.id))
+                                                          : navigate('/login')}
+                                        > follow </button>}
+                                </div>)
+                            })}
+                        </div>}
+                        </div>
+                        </div>
+                        </DocumentTitle>
+                        )
+                    }
 
-export default Friends;
+                    export default Friends;

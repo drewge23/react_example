@@ -6,7 +6,7 @@ const friendsSlice = createSlice({
     initialState: {
         friends: [/*{id: nanoid(), name: "vasia", followed: false, uniqueUrlName: './url'}*/],
         friendsTotal: 0,
-        pageSize: 5,
+        pageSize: 10,
         isFetching: false,
         followingProgress: [],
     },
