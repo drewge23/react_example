@@ -46,7 +46,9 @@ const Header = (props) => {
                                       margin: 'auto 20px',
                                   }}
                         >Logout</button>
-                        : <NavLink to={'/login'}><button> Login </button></NavLink>}
+                        : <NavLink to={'/login'}><button style={{
+                            margin: 'auto 20px',
+                        }}> Login </button></NavLink>}
                 </div>
             </div>
             {/*<div style={{flexGrow: 0, display: 'flex'}}>*/}

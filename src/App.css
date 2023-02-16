@@ -28,3 +28,35 @@
   grid-area: content;
   background-color: beige;
 }
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+button {
+  background-color: lightcyan;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 1px solid #494949;
+  margin: 20px 0 0 0;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #a8f8f8;
+}
+textarea {
+  resize: none;
+}
+input {
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 15px;
+}
+input[type='file'] {
+  font-size: 0.5rem;
+}
+input[type='checkbox'] {
+  min-width: 20px;
+  min-height: 20px;
+  margin: 5px 10px;
+}

@@ -19,7 +19,11 @@ const Login = () => {
     return (
         <div>
             {!isLogged
-                ? <>
+                ? <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '50px 0 0 50px'
+                }}>
                     <h1>Login</h1>
                     <Form onSubmit={onSubmit}
                           render={({handleSubmit, form, submitting, pristine, values}) => (
@@ -53,7 +57,7 @@ const Login = () => {
                                   <button type={"submit"}> Submit</button>
                               </form>)}
                     />
-                </>
+                </div>
                 : <div> Loading... </div>}
         </div>
     )

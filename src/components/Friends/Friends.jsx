@@ -24,8 +24,11 @@ const Friends = () => {
     let pageSize = useSelector(state => state.friends.pageSize);
     let pagesAmount = Math.ceil(friendsTotal / pageSize);
 
+    const [firstPage, setFirstPage] = useState(1)
+    const [lastPage, setLastPage] = useState(10)
+
     let pages = [];
-    for (let i = 1; i <= Math.min(pagesAmount, 10); i++) {
+    for (let i = firstPage; i <= Math.min(pagesAmount, lastPage); i++) {
         pages.push(i);
     }
 
@@ -39,17 +42,29 @@ const Friends = () => {
         <DocumentTitle title={'Users'}>
             <div className={s.prHeader}>
                 <button
-                    onClick={() => setPageNumber(pageNumber > 1 ? pageNumber - 1 : pageNumber)}
+                    onClick={() => {
+                        setPageNumber(pageNumber > 1 ? pageNumber - 1 : pageNumber)
+                        if (firstPage > 1 && pageNumber <= firstPage) {
+                            setFirstPage(firstPage - 10)
+                            setLastPage(lastPage - 10)
+                        }
+                    }}
                 > {'<'} </button>
 
                 {pages.map(p => <button
                     key={p}
-                    style={p === pageNumber ? {width: 50, height: 50} : {width: 50, height: 30}}
+                    style={{width: 50, height: 50, backgroundColor: p === pageNumber ? '#74d9d9' : 'lightcyan'}}
                     onClick={() => setPageNumber(p)}
                 > {p} </button>)}
 
                 <button
-                    onClick={() => setPageNumber(pageNumber < pagesAmount ? pageNumber + 1 : pageNumber)}
+                    onClick={() => {
+                        setPageNumber(pageNumber < pagesAmount ? pageNumber + 1 : pageNumber)
+                        if (pageNumber >= lastPage) {
+                            setFirstPage(firstPage + 10)
+                            setLastPage(lastPage + 10)
+                        }
+                    }}
                 > {'>'} </button>
 
                 <p></p>
@@ -61,7 +76,7 @@ const Friends = () => {
                     onClick={() => dispatch(setPageSize(5))}
                 > {'page size -'} </button>
 
-                <div>Friends</div>
+                <div>Users</div>
                 {isFetching
                     ? <p> data is fetching... </p>
                     : friends.map(user => {

@@ -23,7 +23,7 @@ const NotFound = ({message}) => {
             fontWeight: '700',
             borderRadius: '25px 25px 0 0',
         }}>
-            {message}
+            <h1>{message}</h1>
         </div>
     )
 }
