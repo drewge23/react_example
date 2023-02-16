@@ -5,17 +5,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
-import StoreContext from './StoreContext';
+// import StoreContext from './StoreContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let renderEntirePage = () => {
   root.render(
     <React.StrictMode>
-        <StoreContext.Provider value={store}>
-            <App store={store} 
-                state={store.getState()}
-                dispatch={store.dispatch.bind(store)} />
-        </StoreContext.Provider>
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>
   );
 }
@@ -26,7 +24,7 @@ let renderEntirePage = () => {
 //     renderEntirePage(state);
 // })
 
-store.subscribe(renderEntirePage);
+// store.subscribe(renderEntirePage);
 renderEntirePage();
 
 // If you want to start measuring performance in your app, pass a function

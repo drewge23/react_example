@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import s from './Messages.module.css';
 import React from 'react';
 import { addMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/messagesReducer';
+import {useDispatch, useSelector} from "react-redux";
+import {messageAdded, messageUpdated} from "./messagesSlice";
 
 const DialogItem = (props) => {
     let path = '/messages/' + props.id;
@@ -16,21 +18,24 @@ const MessageItem = (props) => {
     return <div className={s.message}> {props.message} </div>
 }
 
-const Messages = (props) => {
-    let dialogs = props.messagesPage.dialogs;
-    let messages = props.messagesPage.messages;
-    // let newMessage = React.createRef();
+const Messages = () => {
+    const dispatch = useDispatch();
 
-    const updateNewMessage = (e) => {
-        // let text = newMessage.current.value;
-        let action = updateNewMessageTextActionCreator(e.target.value);
-        props.dispatch(action);
+    const dialogs = useSelector(state => state.messages.dialogs);
+    const messages = useSelector(state => state.messages.messages);
+    const newMessageText = useSelector(state => state.messages.newMessageText);
+
+    const isLogged = useSelector(state => state.auth.isLogged)
+    if (!isLogged) {
+        return <Navigate to={"/login"}/>
     }
 
-    let sendMessage = () => {
-        let message = props.messagesPage.newMessageText;
-        let action = addMessageActionCreator(message);
-        props.dispatch(action);
+    const updateNewMessage = (e) => {
+        dispatch(messageUpdated(e.target.value));
+    }
+
+    const sendMessage = () => {
+        dispatch(messageAdded(newMessageText));
     }
 
     return (
@@ -43,14 +48,13 @@ const Messages = (props) => {
             </div>
             <div className={s.dialogs}>
                 <div className="dialogList">
-                    {dialogs.map(el => <DialogItem name={el.userName} id={el.id} />)}
+                    {dialogs.map(el => <DialogItem name={el.userName} key={el.id} />)}
                 </div>
 
                 <div className="messages">
-                    {messages.map(el => <MessageItem message={el.message} />)}
+                    {messages.map(el => <MessageItem message={el.message} key={el.id} />)}
                     <textarea 
-                        // ref={newMessage}   
-                        value = {props.messagesPage.newMessageText}
+                        value = {newMessageText}
                         onChange = { updateNewMessage }
                         placeholder = 'Enter your message'
                     ></textarea>

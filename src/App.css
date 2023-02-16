@@ -1,6 +1,7 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-size: 24px;
 }
 
@@ -8,12 +9,12 @@
   width: 100%;
   display: grid;
   gap: 10px;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 2fr 8fr;
   grid-template-rows: 80px 1fr;
   grid-template-areas: 
   'header header'
   'nav content';
-  margin: 0px;
+  margin: 0;
 }
 
 .header {
@@ -26,4 +27,39 @@
 .content {
   grid-area: content;
   background-color: beige;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+button {
+  background-color: lightcyan;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 1px solid #494949;
+  margin: 20px 0 0 0;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #a8f8f8;
+}
+textarea {
+  resize: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 15px;
+}
+input {
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 15px;
+}
+input[type='file'] {
+  font-size: 0.5rem;
+}
+input[type='checkbox'] {
+  min-width: 20px;
+  min-height: 20px;
+  margin: 5px 10px;
 }

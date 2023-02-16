@@ -1,12 +1,19 @@
-import { combineReducers, legacy_createStore } from "redux";
-import messagesReducer from "./messagesReducer";
-import profileReducer from "./profileReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import messagesReducer from "../components/Messages/messagesSlice";
+import postsReducer from "../components/Profile/Posts/postsSlice";
+import friendsReducer from "../components/Friends/friendsSlice";
+import profileReducer from "../components/Profile/profileSlice";
+import authReducer from "./authSlice";
 
-let reducers = combineReducers({
-    profilePage: profileReducer,
-    messagesPage: messagesReducer,
-});
+const rootReducer = combineReducers({
+    posts: postsReducer,
+    messages: messagesReducer,
+    friends: friendsReducer,
+    profile: profileReducer,
+    auth: authReducer,
+})
 
-let store = legacy_createStore(reducers);
+const store = configureStore({reducer: rootReducer});
 
 export default store;
